@@ -17,8 +17,6 @@ The project is developed in Kotlin with Jetpack Compose for UI, ensuring a decla
 - presentation/ – Handles UI components with Jetpack Compose.
 - MainActivity.kt – The entry point of the application.
 
-This modular structure ensures scalability and maintainability.
-
 ## Getting Started
 
 ### Prerequisites
