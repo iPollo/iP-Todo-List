@@ -40,7 +40,7 @@ git clone <repo-url>
 Open in Android Studio and sync Gradle.
 Run the application on an emulator or physical device.
 
-📄 License
+## 📄 License
 
 Copyright (c) 2025 Henrique Selau de Oliveira (Henry/iPollo)  
 All rights reserved. No part of this code may be copied, modified, or distributed without the explicit permission of the author.
