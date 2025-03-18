@@ -12,10 +12,10 @@ The project is developed in Kotlin with Jetpack Compose for UI, ensuring a decla
 
 ## Project Structure
 
-- data/ – Manages data sources and repositories.
-- domain/ – Contains business logic and core models.
-- presentation/ – Handles UI components with Jetpack Compose.
-- MainActivity.kt – The entry point of the application.
+- `data/`  – Manages data sources and repositories.
+- `domain/` – Contains business logic and core models.
+- `presentation/` – Handles UI components with Jetpack Compose.
+- `MainActivity.kt` – The entry point of the application.
 
 ## Getting Started
 
