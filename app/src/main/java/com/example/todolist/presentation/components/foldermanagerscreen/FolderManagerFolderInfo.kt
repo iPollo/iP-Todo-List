@@ -30,11 +30,11 @@ fun FolderManagerFolderInfo(){
         onClick = { },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 5.dp, bottom = 5.dp)
-            .height(80.dp),
+            .padding(top = 2.dp, bottom = 2.dp)
+            .height(100.dp),
         shape = RoundedCornerShape(30.dp),
-        colors = ButtonDefaults.outlinedButtonColors(containerColor = Color(56, 56, 56)),
-        border = BorderStroke(0.dp, Color(0, 0, 0, 0)),
+        colors = ButtonDefaults.outlinedButtonColors(containerColor = Color(20,20,20)),
+        border = BorderStroke(2.dp, Color(40,40,40, 255)),
         contentPadding = PaddingValues(0.dp)
     ) {
 
