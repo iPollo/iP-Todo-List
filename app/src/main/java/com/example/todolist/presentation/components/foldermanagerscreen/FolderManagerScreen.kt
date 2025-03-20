@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,12 +22,13 @@ fun FolderManagerScreen(viewModel: TodoListViewModel, navController: NavControll
         modifier = Modifier.Companion
             .fillMaxSize()
             .background(AppColor_Background)
-            .padding(10.dp)
+            .padding(10.dp),
+        state = rememberLazyListState()
     ) {
         item {
             FolderMangerAddButton()
         }
-        items(20){
+        items(2){
             FolderManagerFolderInfo()
         }
     }

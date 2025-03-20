@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
         val viewModel = TodoListViewModel()
 
         viewModel.addFolder(Folder(0, "", Icons.Filled.Menu , FOLDERTYPE.ADD, mutableListOf<Task>()))
-        viewModel.addFolder(Folder(0, "Market", Icons.Filled.ShoppingCart, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
+        viewModel.addFolder(Folder(0, "Groceries", Icons.Filled.ShoppingCart, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
         viewModel.addFolder(Folder(0, "My Tasks", Icons.Filled.DateRange, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
 
         viewModel.setFirstFolderAsCurrent()

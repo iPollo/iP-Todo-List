@@ -2,6 +2,7 @@ package com.example.todolist.presentation.components.foldermanagerscreen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,23 +23,22 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FolderMangerAddButton(){
 
-    Box(){}
-
     OutlinedButton(
         onClick = { },
-        modifier = Modifier.Companion
+        modifier = Modifier
             .fillMaxWidth()
             .padding(top = 30.dp, bottom = 10.dp)
-            .height(50.dp),
+            .height(90.dp),
         shape = RoundedCornerShape(30.dp),
-        colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.Companion.Green),
-        border = BorderStroke(0.dp, Color(58, 177, 25, 255))
+        colors = ButtonDefaults.outlinedButtonColors(containerColor = Color(20,20,20)),
+        border = BorderStroke(1.dp, Color(88, 227, 26, 100)),
+        contentPadding = PaddingValues(0.dp)
     ) {
 
         Icon(
             Icons.Filled.AddCircle,
             contentDescription = "addFolderButton",
-            tint = Color.Companion.White,
+            tint = Color(88, 227, 26, 255),
             modifier = Modifier.Companion.size(50.dp)
         )
     }
