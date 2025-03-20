@@ -127,7 +127,7 @@ fun FolderManagerFolderInfo(){
                 Icon(
                     Icons.Filled.Close,
                     contentDescription = "addFolderButton",
-                    tint = Color.Companion.White,
+                    tint = Color.White,
                     modifier = Modifier.size(20.dp)
                 )
             }
