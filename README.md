@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="342" height="372" src="https://i.imgur.com/qpiara4.png"> <img width="200" height="424" src="https://i.imgur.com/OjmBxs2.png">
+  <img width="500" height="146" src="https://i.imgur.com/rBt2X48.png"> <img width="200" height="424" src="https://i.imgur.com/OjmBxs2.png">
 </p>
 
 # To-Do List App
