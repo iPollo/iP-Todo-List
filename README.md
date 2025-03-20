@@ -1,10 +1,12 @@
 <p align="center">
-  <img width="500" height="146" src="https://i.imgur.com/rBt2X48.png"> <img width="200" height="424" src="https://i.imgur.com/OjmBxs2.png">
+  <img width="500" height="146" src="https://i.imgur.com/rBt2X48.png">
 </p>
 
 # To-Do List App
 
 A simple and efficient To-Do List application built with Kotlin and Jetpack Compose, designed to help users organize their daily tasks in an intuitive and user-friendly way. The app provides an elegant and smooth experience, leveraging modern Android development principles to ensure performance and maintainability.
+
+<img width="200" height="424" src="https://i.imgur.com/OjmBxs2.png">
 
 ## Features
 
