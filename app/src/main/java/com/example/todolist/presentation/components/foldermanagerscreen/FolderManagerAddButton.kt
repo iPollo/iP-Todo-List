@@ -19,12 +19,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.todolist.presentation.viewmodel.TodoListViewModel
 
 @Composable
-fun FolderMangerAddButton(){
+fun FolderMangerAddButton(viewModel: TodoListViewModel){
 
     OutlinedButton(
-        onClick = { },
+        onClick = {viewModel.onNewFolderButtonClick()},
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 30.dp, bottom = 10.dp)

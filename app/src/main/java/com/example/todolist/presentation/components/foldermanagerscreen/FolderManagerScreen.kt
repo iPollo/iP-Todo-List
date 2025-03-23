@@ -32,12 +32,12 @@ fun FolderManagerScreen(viewModel: TodoListViewModel, navController: NavControll
         state = rememberLazyListState()
     ) {
         item {
-            FolderMangerAddButton()
+            FolderMangerAddButton(viewModel)
         }
 
         itemsIndexed(foldersList){_,folder: Folder ->
             if(!viewModel.isFolderManager(folder.id)){
-                FolderManagerFolderInfo(folder, {}, {}, viewModel)
+                FolderManagerFolderInfo(folder, viewModel)
             }
         }
 

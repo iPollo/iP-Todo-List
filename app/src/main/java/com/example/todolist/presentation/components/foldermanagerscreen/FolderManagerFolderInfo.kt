@@ -36,7 +36,7 @@ import com.example.todolist.domain.model.Folder
 import com.example.todolist.presentation.viewmodel.TodoListViewModel
 
 @Composable
-fun FolderManagerFolderInfo(folder: Folder, onIconClick:()->Unit, onDeleteClick:()-> Unit, viewModel: TodoListViewModel){
+fun FolderManagerFolderInfo(folder: Folder, viewModel: TodoListViewModel){
 
     OutlinedButton(
         onClick = { },
@@ -106,7 +106,7 @@ fun FolderManagerFolderInfo(folder: Folder, onIconClick:()->Unit, onDeleteClick:
             )
 
             Button(
-                onClick = onIconClick,
+                onClick = { },
                 Modifier
                     .align(Alignment.CenterStart)
                     .padding(start = 10.dp)
@@ -122,7 +122,7 @@ fun FolderManagerFolderInfo(folder: Folder, onIconClick:()->Unit, onDeleteClick:
                 )
             }
             Button(
-                onClick = onDeleteClick,
+                onClick = {viewModel.onFolderDeleteClick(folder)},
                 Modifier
                     .align(Alignment.CenterEnd)
                     .padding(end = 10.dp)

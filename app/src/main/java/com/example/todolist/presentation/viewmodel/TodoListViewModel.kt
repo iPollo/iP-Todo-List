@@ -5,6 +5,8 @@ import android.os.Debug
 import android.util.Log
 import android.util.MutableInt
 import androidx.annotation.RequiresApi
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -13,6 +15,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.todolist.data.datasource.TodoListObject
+import com.example.todolist.domain.model.FOLDERTYPE
 import com.example.todolist.domain.model.Folder
 import com.example.todolist.domain.model.Task
 
@@ -56,6 +59,15 @@ class TodoListViewModel: ViewModel() {
     fun onFolderNameTextChange(folder: Folder, newText: String){
         TodoListObject.setFolderName(folder.id, newText)
         _folderList.value = TodoListObject.getAllFolders()
+    }
+
+    fun onFolderDeleteClick(folder: Folder){
+        TodoListObject.removeFolder(folder)
+        _folderList.value = TodoListObject.getAllFolders()
+    }
+
+    fun onNewFolderButtonClick(){
+        addFolder(Folder(0, "My new folder", Icons.Filled.Email, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
     }
 
     fun setFirstFolderAsCurrent(){
