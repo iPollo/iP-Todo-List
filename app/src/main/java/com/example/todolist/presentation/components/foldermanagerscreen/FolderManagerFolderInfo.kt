@@ -32,11 +32,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.todolist.domain.model.Folder
+import com.example.todolist.presentation.viewmodel.TodoListViewModel
 
 @Composable
-fun FolderManagerFolderInfo(){
-
-    var folderName by remember{mutableStateOf("Groceries")}
+fun FolderManagerFolderInfo(folder: Folder, onIconClick:()->Unit, onDeleteClick:()-> Unit, viewModel: TodoListViewModel){
 
     OutlinedButton(
         onClick = { },
@@ -53,10 +53,10 @@ fun FolderManagerFolderInfo(){
         Box(modifier = Modifier.fillMaxSize()){
 
             TextField(
-                value = folderName,
+                value = folder.folderName,
                 modifier = Modifier.align(Alignment.Center),
                 textStyle = TextStyle(fontSize = 20.sp, textAlign = TextAlign.Center),
-                onValueChange = {folderName = it},
+                onValueChange = {viewModel.onFolderNameTextChange(folder, it)},
                 readOnly = false,
                 singleLine = true,
                 colors = TextFieldDefaults.colors(
@@ -106,21 +106,27 @@ fun FolderManagerFolderInfo(){
             )
 
             Button(
-                onClick = {},
-                Modifier.align(Alignment.CenterStart).padding(start = 10.dp).size(50.dp),
+                onClick = onIconClick,
+                Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(start = 10.dp)
+                    .size(50.dp),
                 contentPadding = PaddingValues(1.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0,0,0,0))
             ){
                 Icon(
-                    Icons.Filled.Email,
+                    folder.folderIcon,
                     contentDescription = "addFolderButton",
                     tint = Color.Companion.White,
                     modifier = Modifier.size(30.dp)
                 )
             }
             Button(
-                onClick = {},
-                Modifier.align(Alignment.CenterEnd).padding(end = 10.dp).size(50.dp),
+                onClick = onDeleteClick,
+                Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(end = 10.dp)
+                    .size(50.dp),
                 contentPadding = PaddingValues(1.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0,0,0,0))
             ){

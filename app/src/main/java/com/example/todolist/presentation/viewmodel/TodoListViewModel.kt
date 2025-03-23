@@ -53,6 +53,11 @@ class TodoListViewModel: ViewModel() {
         currentSelectedFolder = 1
     }
 
+    fun onFolderNameTextChange(folder: Folder, newText: String){
+        TodoListObject.setFolderName(folder.id, newText)
+        _folderList.value = TodoListObject.getAllFolders()
+    }
+
     fun setFirstFolderAsCurrent(){
         currentSelectedFolder = TodoListObject.getFirstFolderId()
     }

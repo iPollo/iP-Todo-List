@@ -3,6 +3,7 @@ package com.example.todolist.data.datasource
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.ViewModelProvider
 import com.example.todolist.domain.model.Folder
 import com.example.todolist.domain.model.PRIORITYLEVEL
 import com.example.todolist.domain.model.Task
@@ -24,8 +25,8 @@ object TodoListObject {
         folderList.add(newFolder)
     }
 
-    fun removeFolder(folderid: Int){
-        //TODO
+    fun removeFolder(folder: Folder){
+        folderList.remove(folder)
     }
 
     fun getFirstFolderId(): Int{
@@ -35,6 +36,16 @@ object TodoListObject {
 
     fun isFolderManager(folderid: Int): Boolean{
         return folderList.elementAt(0).id == folderid
+    }
+
+    fun setFolderName(folderid: Int, newName: String){
+        val currentFolder = getFolderFromId(folderid) ?: return
+        val updatedFolder = currentFolder.copy(folderName = newName)
+
+        val folderIndex = getFolderIndexFromId(currentFolder)
+        removeFolder(currentFolder)
+
+        folderList.add(folderIndex, updatedFolder)
     }
 
     fun getAllTasks(folderid: Int): List<Task>{
@@ -69,6 +80,10 @@ object TodoListObject {
     fun getFolderFromId(folderid: Int): Folder? {
         val currentFolder = folderList.find {it.id == folderid}
         return currentFolder
+    }
+
+    fun getFolderIndexFromId(folder: Folder): Int{
+        return folderList.indexOf(folder)
     }
 
 
