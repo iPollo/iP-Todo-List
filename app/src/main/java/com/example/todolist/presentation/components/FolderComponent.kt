@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.todolist.domain.model.FOLDERTYPE
@@ -33,6 +34,9 @@ fun FolderButtonComponent(viewModel: TodoListViewModel, folder: Folder, onButton
     val folderProgress: Float = if(totalFinishedTasks == 0){0f}else{(totalFinishedTasks.toFloat()/totalTasks.toFloat())}
     val folderBackColor: Color = if(viewModel.isFolderCurrentSelectedFolder(folder)) Color(255,255,255,10) else Color(20,20,20)
     var folderBorderColor: Color = if(viewModel.isFolderCurrentSelectedFolder(folder)) Color(255,255,255,255) else Color(40,40,40)
+    val baseFontSize = 20.0f
+    val minFontSize = 10.0f
+    val dynamicFontSize = (baseFontSize - ((folder.folderName.length * 0.5))).sp
 
 
     OutlinedButton(
@@ -61,9 +65,11 @@ fun FolderButtonComponent(viewModel: TodoListViewModel, folder: Folder, onButton
                     modifier = Modifier
                         .align(Alignment.TopCenter)
                         .padding(top = 10.dp),
-                    fontSize = 20.sp,
+                    fontSize = dynamicFontSize,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     "$totalFinishedTasks / $totalTasks",
