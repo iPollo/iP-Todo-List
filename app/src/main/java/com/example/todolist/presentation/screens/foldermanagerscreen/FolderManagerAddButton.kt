@@ -1,4 +1,4 @@
-package com.example.todolist.presentation.components.foldermanagerscreen
+package com.example.todolist.presentation.screens.foldermanagerscreen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
@@ -32,14 +32,14 @@ fun FolderMangerAddButton(viewModel: TodoListViewModel){
             .height(90.dp),
         shape = RoundedCornerShape(30.dp),
         colors = ButtonDefaults.outlinedButtonColors(containerColor = Color(20,20,20)),
-        border = BorderStroke(1.dp, Color(88, 227, 26, 100)),
+        border = BorderStroke(1.dp, Color(50, 168, 82, 255)),
         contentPadding = PaddingValues(0.dp)
     ) {
 
         Icon(
             Icons.Filled.AddCircle,
             contentDescription = "addFolderButton",
-            tint = Color(88, 227, 26, 255),
+            tint = Color(50, 168, 82, 255),
             modifier = Modifier.Companion.size(50.dp)
         )
     }
