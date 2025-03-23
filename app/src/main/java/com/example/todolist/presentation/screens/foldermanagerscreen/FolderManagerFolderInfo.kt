@@ -1,4 +1,4 @@
-package com.example.todolist.presentation.components.foldermanagerscreen
+package com.example.todolist.presentation.screens.foldermanagerscreen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -36,7 +36,7 @@ import com.example.todolist.domain.model.Folder
 import com.example.todolist.presentation.viewmodel.TodoListViewModel
 
 @Composable
-fun FolderManagerFolderInfo(folder: Folder, viewModel: TodoListViewModel){
+fun FolderManagerFolderInfo(folder: Folder, viewModel: TodoListViewModel, onIconClick:()-> Unit){
 
     OutlinedButton(
         onClick = { },
@@ -106,7 +106,7 @@ fun FolderManagerFolderInfo(folder: Folder, viewModel: TodoListViewModel){
             )
 
             Button(
-                onClick = { },
+                onClick = onIconClick,
                 Modifier
                     .align(Alignment.CenterStart)
                     .padding(start = 10.dp)

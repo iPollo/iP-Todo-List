@@ -1,4 +1,4 @@
-package com.example.todolist.presentation.components.foldermanagerscreen
+package com.example.todolist.presentation.screens.foldermanagerscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.todolist.domain.model.Folder
@@ -37,7 +36,7 @@ fun FolderManagerScreen(viewModel: TodoListViewModel, navController: NavControll
 
         itemsIndexed(foldersList){_,folder: Folder ->
             if(!viewModel.isFolderManager(folder.id)){
-                FolderManagerFolderInfo(folder, viewModel)
+                FolderManagerFolderInfo(folder, viewModel, onIconClick = {navController.navigate("todo_list_iconselector")})
             }
         }
 
