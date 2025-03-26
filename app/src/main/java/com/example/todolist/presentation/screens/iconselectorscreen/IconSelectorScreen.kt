@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import com.example.todolist.data.datasource.IconList.folderIconsList
 import com.example.todolist.presentation.viewmodel.TodoListViewModel
 import com.example.todolist.ui.theme.AppColor_Background
 
@@ -25,8 +26,8 @@ fun IconSelectorScreen(viewModel: TodoListViewModel, navController: NavControlle
         modifier = Modifier.fillMaxSize().background(AppColor_Background).padding(start = 10.dp, end=10.dp, top = 50.dp),
         //contentPadding = PaddingValues(vertical = 10.dp, horizontal = 10.dp)
     ) {
-        items(100){
-            IconButton(onIconClick = {navController.popBackStack()})
+        items(folderIconsList.size){ index->
+            IconButton(onIconClick = {navController.popBackStack()}, icon = folderIconsList[index])
         }
     }
 }
