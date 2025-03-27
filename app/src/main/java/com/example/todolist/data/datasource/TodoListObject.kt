@@ -3,6 +3,7 @@ package com.example.todolist.data.datasource
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModelProvider
 import com.example.todolist.domain.model.Folder
 import com.example.todolist.domain.model.PRIORITYLEVEL
@@ -29,6 +30,14 @@ object TodoListObject {
         folderList.remove(folder)
     }
 
+    fun setFolderIcon(folder: Folder, newIcon: ImageVector){
+        val updatedFolder = folder.copy(folderIcon = newIcon)
+        val folderIndex = getFolderIndex(folder)
+
+        removeFolder(folder)
+        folderList.add(folderIndex, updatedFolder)
+    }
+
     fun getFirstFolderId(): Int{
         return folderList.last().id
     }
@@ -42,7 +51,7 @@ object TodoListObject {
         val currentFolder = getFolderFromId(folderid) ?: return
         val updatedFolder = currentFolder.copy(folderName = newName)
 
-        val folderIndex = getFolderIndexFromId(currentFolder)
+        val folderIndex = getFolderIndex(currentFolder)
         removeFolder(currentFolder)
 
         folderList.add(folderIndex, updatedFolder)
@@ -82,7 +91,7 @@ object TodoListObject {
         return currentFolder
     }
 
-    fun getFolderIndexFromId(folder: Folder): Int{
+    fun getFolderIndex(folder: Folder): Int{
         return folderList.indexOf(folder)
     }
 

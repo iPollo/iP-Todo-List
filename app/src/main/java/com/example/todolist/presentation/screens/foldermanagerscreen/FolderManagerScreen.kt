@@ -36,7 +36,7 @@ fun FolderManagerScreen(viewModel: TodoListViewModel, navController: NavControll
 
         itemsIndexed(foldersList){_,folder: Folder ->
             if(!viewModel.isFolderManager(folder.id)){
-                FolderManagerFolderInfo(folder, viewModel, onIconClick = {navController.navigate("todo_list_iconselector")})
+                FolderManagerFolderInfo(folder, viewModel, onIconClick = { viewModel.onFolderIconClick(folder, navController) })
             }
         }
 

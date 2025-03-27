@@ -27,7 +27,7 @@ fun IconSelectorScreen(viewModel: TodoListViewModel, navController: NavControlle
         //contentPadding = PaddingValues(vertical = 10.dp, horizontal = 10.dp)
     ) {
         items(folderIconsList.size){ index->
-            IconButton(onIconClick = {navController.popBackStack()}, icon = folderIconsList[index])
+            IconButton(onIconClick = {viewModel.onIconSelectorClick(folderIconsList[index], navController)}, icon = folderIconsList[index])
         }
     }
 }

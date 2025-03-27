@@ -19,9 +19,12 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Checklist
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Shop
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -64,7 +67,7 @@ class MainActivity : ComponentActivity() {
 
         viewModel.addFolder(Folder(0, "", Icons.Filled.Menu , FOLDERTYPE.ADD, mutableListOf<Task>()))
         viewModel.addFolder(Folder(0, "Groceries", Icons.Filled.ShoppingCart, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
-        viewModel.addFolder(Folder(0, "My Tasks", Icons.Filled.DateRange, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
+        viewModel.addFolder(Folder(0, "My Tasks", Icons.Filled.Checklist, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
 
         viewModel.setFirstFolderAsCurrent()
 

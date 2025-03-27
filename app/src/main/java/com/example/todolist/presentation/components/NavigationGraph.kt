@@ -16,6 +16,6 @@ fun NavigationGrph(viewModel: TodoListViewModel){
     NavHost(navController, startDestination = "todo_list_main"){
         composable("todo_list_main"){TodoListApp(viewModel, navController)}
         composable("todo_list_foldermanager"){ FolderManagerScreen(viewModel, navController) }
-        composable("todo_list_iconselector"){IconSelectorScreen(viewModel, navController)}
+        composable("todo_list_iconselector"){IconSelectorScreen(viewModel, navController, )}
     }
 }

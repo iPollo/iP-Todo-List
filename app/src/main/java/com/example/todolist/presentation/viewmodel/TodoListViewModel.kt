@@ -7,13 +7,16 @@ import android.util.MutableInt
 import androidx.annotation.RequiresApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Folder
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import com.example.todolist.data.datasource.TodoListObject
 import com.example.todolist.domain.model.FOLDERTYPE
 import com.example.todolist.domain.model.Folder
@@ -31,6 +34,9 @@ class TodoListViewModel: ViewModel() {
     val folderList: LiveData<List<Folder>> = _folderList
 
     var currentSelectedFolder by mutableIntStateOf(0)
+        private set
+
+    var currentEditingFolder by mutableStateOf(Folder(0, "Default", Icons.Filled.Email, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
         private set
 
     fun onNewTaskInputChanger(newText: String){
@@ -56,6 +62,17 @@ class TodoListViewModel: ViewModel() {
         currentSelectedFolder = 1
     }
 
+    fun onIconSelectorClick(icon: ImageVector, navController: NavController){
+        TodoListObject.setFolderIcon(currentEditingFolder, icon)
+        _folderList.value = TodoListObject.getAllFolders()
+        navController.popBackStack()
+    }
+
+    fun onFolderIconClick(folder: Folder, navController: NavController){
+        currentEditingFolder = folder
+        navController.navigate("todo_list_iconselector")
+    }
+
     fun onFolderNameTextChange(folder: Folder, newText: String){
         TodoListObject.setFolderName(folder.id, newText)
         _folderList.value = TodoListObject.getAllFolders()
@@ -67,7 +84,7 @@ class TodoListViewModel: ViewModel() {
     }
 
     fun onNewFolderButtonClick(){
-        addFolder(Folder(0, "My new folder", Icons.Filled.Email, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
+        addFolder(Folder(0, "My new folder", Icons.Filled.Folder, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
     }
 
     fun setFirstFolderAsCurrent(){
