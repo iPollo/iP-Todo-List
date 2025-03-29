@@ -16,15 +16,19 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.todolist.data.local.DataBaseSetup
 import com.example.todolist.data.local.FolderDAO
 import com.example.todolist.domain.model.FOLDERTYPE
 import com.example.todolist.domain.model.Folder
+import com.example.todolist.domain.model.PRIORITYLEVEL
 import com.example.todolist.domain.model.Task
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.Instant
+import java.util.Date
 
 class TodoListViewModel: ViewModel() {
 
@@ -40,7 +44,7 @@ class TodoListViewModel: ViewModel() {
     var currentEditingFolder by mutableStateOf(Folder(0, "Default", Icons.Filled.Email, FOLDERTYPE.FOLDER))
         private set
 
-    val taskList: LiveData<List<Task>> = taskDao.getAllDataFromFolder(currentSelectedFolder)
+    val taskList: LiveData<List<Task>> = taskDao.getAllDataFromFolder(currentSelectedFolder).asLiveData()
     val folderList: LiveData<List<Folder>> = folderDao.getAllData()
 
     fun onNewTaskInputChanger(newText: String){
@@ -104,13 +108,25 @@ class TodoListViewModel: ViewModel() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun addTask(text: String){
         if(text.isBlank()) return;
-        //TodoListObject.addTask(currentSelectedFolder, text)
-        getAllTasksFromCurrentFolder()
+        //currentSelectedFolder = 1
+        Log.d("ViewModel", "Adding task to folder ID: $currentSelectedFolder")
+        viewModelScope.launch(Dispatchers.IO) {
+            taskDao.insertTask(
+                Task(
+                    text = text,
+                    prioritylevel = PRIORITYLEVEL.NONE,
+                    finished = false,
+                    folderId = currentSelectedFolder,
+                    creationDate = Date.from(Instant.now())
+                )
+            )
+        }
     }
 
     fun deleteTask(task: Task){
-        //TodoListObject.deleteTask(currentSelectedFolder, task)
-        getAllTasksFromCurrentFolder()
+        viewModelScope.launch(Dispatchers.IO) {
+            taskDao.deleteTask(task)
+        }
     }
 
     fun setTaskFinished(taskid: Int){

@@ -10,12 +10,6 @@ import java.util.Date
 
 @Entity(
     tableName = "tasks",
-    foreignKeys = [ForeignKey(
-        entity = Folder::class,
-        parentColumns = ["id"],
-        childColumns = ["folderId"],
-        onDelete = ForeignKey.CASCADE
-    )]
 )
 data class Task(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,

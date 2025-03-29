@@ -69,6 +69,9 @@ class MainActivity : ComponentActivity() {
         viewModel.addFolder(Folder(0, "Groceries", Icons.Filled.ShoppingCart, FOLDERTYPE.FOLDER))
         viewModel.addFolder(Folder(0, "My Tasks", Icons.Filled.Checklist, FOLDERTYPE.FOLDER))
 
+        viewModel.addTask("Sample1")
+        viewModel.addTask("Sample2")
+
         viewModel.setFirstFolderAsCurrent()
 
         setContent {

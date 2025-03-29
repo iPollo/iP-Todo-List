@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.example.todolist.domain.model.Folder
 import com.example.todolist.domain.model.Task
 
-@Database(entities = [Folder::class, Task::class], version = 1)
+@Database(entities = [Folder::class, Task::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class DataBase : RoomDatabase() {
     companion object {
