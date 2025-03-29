@@ -29,8 +29,8 @@ import com.example.todolist.presentation.viewmodel.TodoListViewModel
 @Composable
 fun FolderButtonComponent(viewModel: TodoListViewModel, folder: Folder, onButtonClick:()-> Unit){
 
-    val totalTasks: Int = folder.taskList.count()
-    val totalFinishedTasks: Int = folder.taskList.count(){it.finished}
+    val totalTasks: Int = 1
+    val totalFinishedTasks: Int = 1
     val folderProgress: Float = if(totalFinishedTasks == 0){0f}else{(totalFinishedTasks.toFloat()/totalTasks.toFloat())}
     val folderBackColor: Color = if(viewModel.isFolderCurrentSelectedFolder(folder)) Color(255,255,255,10) else Color(20,20,20)
     var folderBorderColor: Color = if(viewModel.isFolderCurrentSelectedFolder(folder)) Color(255,255,255,255) else Color(40,40,40)

@@ -1,7 +1,10 @@
 package com.example.todolist.data.datasource
 
+import android.media.Image
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.todolist.data.datasource.IconList.folderIconsList
 
 object IconList {
     val folderIconsList = listOf(
@@ -38,4 +41,14 @@ object IconList {
         Icons.Filled.Backup, // Backup
         Icons.Filled.Cloud, // Nuvem
     )
+}
+
+fun getImageVectorByName(name : String): ImageVector{
+    var default: ImageVector = Icons.Filled.Folder
+
+    for(icon in IconList.folderIconsList){
+        if(icon.name == name) default = icon
+    }
+
+    return default
 }

@@ -65,9 +65,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         val viewModel = TodoListViewModel()
 
-        viewModel.addFolder(Folder(0, "", Icons.Filled.Menu , FOLDERTYPE.ADD, mutableListOf<Task>()))
-        viewModel.addFolder(Folder(0, "Groceries", Icons.Filled.ShoppingCart, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
-        viewModel.addFolder(Folder(0, "My Tasks", Icons.Filled.Checklist, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
+        viewModel.addFolder(Folder(0, "", Icons.Filled.Menu , FOLDERTYPE.ADD))
+        viewModel.addFolder(Folder(0, "Groceries", Icons.Filled.ShoppingCart, FOLDERTYPE.FOLDER))
+        viewModel.addFolder(Folder(0, "My Tasks", Icons.Filled.Checklist, FOLDERTYPE.FOLDER))
 
         viewModel.setFirstFolderAsCurrent()
 

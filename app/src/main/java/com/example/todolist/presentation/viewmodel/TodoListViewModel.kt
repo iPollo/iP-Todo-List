@@ -16,28 +16,32 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.example.todolist.data.datasource.TodoListObject
+import com.example.todolist.data.local.DataBaseSetup
+import com.example.todolist.data.local.FolderDAO
 import com.example.todolist.domain.model.FOLDERTYPE
 import com.example.todolist.domain.model.Folder
 import com.example.todolist.domain.model.Task
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class TodoListViewModel: ViewModel() {
+
+    val folderDao = DataBaseSetup.appDataBase.getFolderDAO()
+    val taskDao = DataBaseSetup.appDataBase.getTaskDao()
 
     private val _newTaskInput = MutableLiveData("")
     val newTaskInput: LiveData<String> = _newTaskInput
 
-    private val _taskList = MutableLiveData<List<Task>>()
-    val taskList: LiveData<List<Task>> = _taskList
-
-    private val _folderList = MutableLiveData<List<Folder>>()
-    val folderList: LiveData<List<Folder>> = _folderList
-
     var currentSelectedFolder by mutableIntStateOf(0)
         private set
 
-    var currentEditingFolder by mutableStateOf(Folder(0, "Default", Icons.Filled.Email, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
+    var currentEditingFolder by mutableStateOf(Folder(0, "Default", Icons.Filled.Email, FOLDERTYPE.FOLDER))
         private set
+
+    val taskList: LiveData<List<Task>> = taskDao.getAllDataFromFolder(currentSelectedFolder)
+    val folderList: LiveData<List<Folder>> = folderDao.getAllData()
 
     fun onNewTaskInputChanger(newText: String){
         _newTaskInput.value = newText
@@ -53,18 +57,20 @@ class TodoListViewModel: ViewModel() {
     }
 
     fun getAllTasksFromCurrentFolder(){
-        _taskList.value = TodoListObject.getAllTasks(currentSelectedFolder)
+        //taskList = taskDao.getAllDataFromFolder(currentSelectedFolder)
     }
 
     fun addFolder(folder: Folder){
-        TodoListObject.addFolder(folder)
-        _folderList.value = TodoListObject.getAllFolders()
-        currentSelectedFolder = 1
+
+        viewModelScope.launch(Dispatchers.IO){
+            folderDao.addFolderData(folder)
+            currentSelectedFolder = 1
+        }
+
     }
 
     fun onIconSelectorClick(icon: ImageVector, navController: NavController){
-        TodoListObject.setFolderIcon(currentEditingFolder, icon)
-        _folderList.value = TodoListObject.getAllFolders()
+        //TodoListObject.setFolderIcon(currentEditingFolder, icon)
         navController.popBackStack()
     }
 
@@ -74,41 +80,41 @@ class TodoListViewModel: ViewModel() {
     }
 
     fun onFolderNameTextChange(folder: Folder, newText: String){
-        TodoListObject.setFolderName(folder.id, newText)
-        _folderList.value = TodoListObject.getAllFolders()
+        //TodoListObject.setFolderName(folder.id, newText)
     }
 
     fun onFolderDeleteClick(folder: Folder){
-        TodoListObject.removeFolder(folder)
-        _folderList.value = TodoListObject.getAllFolders()
+        viewModelScope.launch(Dispatchers.IO) {
+            folderDao.deleteFolderData(folder.id)
+        }
     }
 
     fun onNewFolderButtonClick(){
-        addFolder(Folder(0, "My new folder", Icons.Filled.Folder, FOLDERTYPE.FOLDER, mutableListOf<Task>()))
+        addFolder(Folder(0, "My new folder", Icons.Filled.Folder, FOLDERTYPE.FOLDER))
     }
 
     fun setFirstFolderAsCurrent(){
-        currentSelectedFolder = TodoListObject.getFirstFolderId()
+        //currentSelectedFolder = TodoListObject.getFirstFolderId()
     }
 
     fun isFolderManager(folderid: Int): Boolean{
-        return TodoListObject.isFolderManager(folderid)
+        return true
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addTask(text: String){
         if(text.isBlank()) return;
-        TodoListObject.addTask(currentSelectedFolder, text)
+        //TodoListObject.addTask(currentSelectedFolder, text)
         getAllTasksFromCurrentFolder()
     }
 
     fun deleteTask(task: Task){
-        TodoListObject.deleteTask(currentSelectedFolder, task)
+        //TodoListObject.deleteTask(currentSelectedFolder, task)
         getAllTasksFromCurrentFolder()
     }
 
     fun setTaskFinished(taskid: Int){
-        TodoListObject.setTaskFinished(currentSelectedFolder, taskid)
+       // TodoListObject.setTaskFinished(currentSelectedFolder, taskid)
         getAllTasksFromCurrentFolder()
     }
 
