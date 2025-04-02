@@ -21,6 +21,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.todolist.data.local.AppDataStore
@@ -43,13 +44,15 @@ class TodoListViewModel: ViewModel() {
     private val _newTaskInput = MutableLiveData("")
     val newTaskInput: LiveData<String> = _newTaskInput
 
-    var currentSelectedFolder by mutableIntStateOf(0)
-        private set
+    var _currentSelectedFolder = MutableLiveData(0)
+    val currentSelectedFolder: LiveData<Int> = _currentSelectedFolder
 
     var currentEditingFolder by mutableStateOf(Folder(0, "Default", Icons.Filled.Email, FOLDERTYPE.FOLDER))
         private set
 
-    val taskList: LiveData<List<Task>> = taskDao.getAllDataFromFolder(currentSelectedFolder).asLiveData()
+    val taskList: LiveData<List<Task>> = _currentSelectedFolder.switchMap { folderId ->
+        taskDao.getAllDataFromFolder(folderId).asLiveData()
+    }
     val folderList: LiveData<List<Folder>> = folderDao.getAllData()
 
     fun onNewTaskInputChanger(newText: String){
@@ -57,12 +60,12 @@ class TodoListViewModel: ViewModel() {
     }
 
     fun onFolderClick(folderid: Int){
-        currentSelectedFolder = folderid
+        _currentSelectedFolder.value = folderid
         //getAllTasksFromCurrentFolder()
     }
 
     fun isFolderCurrentSelectedFolder(folder: Folder): Boolean{
-        return folder.id == currentSelectedFolder
+        return folder.id == _currentSelectedFolder.value
     }
 
     fun getAllTasksFromCurrentFolder(){
@@ -73,7 +76,7 @@ class TodoListViewModel: ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO){
             folderDao.addFolderData(folder)
-            currentSelectedFolder = 1
+            _currentSelectedFolder.value = 1
         }
 
     }
@@ -134,7 +137,7 @@ class TodoListViewModel: ViewModel() {
                     text = text,
                     prioritylevel = PRIORITYLEVEL.NONE,
                     finished = false,
-                    folderId = currentSelectedFolder,
+                    folderId = _currentSelectedFolder.value ?: 0,
                     creationDate = Date.from(Instant.now())
                 )
             )

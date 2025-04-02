@@ -86,7 +86,7 @@ class MainActivity : ComponentActivity() {
 fun TodoListApp(viewModel: TodoListViewModel, navController: NavHostController){
 
     var inputTask by remember { mutableStateOf("")}
-    val todoList by viewModel.taskList.observeAsState()
+    val todoList by viewModel.taskList.observeAsState(emptyList())
     val foldersList by viewModel.folderList.observeAsState()
     val context = LocalContext.current
 
@@ -118,7 +118,7 @@ fun TodoListApp(viewModel: TodoListViewModel, navController: NavHostController){
                 userScrollEnabled = true,
             ){
                 itemsIndexed(it){_, folder: Folder ->
-                    if(!viewModel.isFolderManager(folder.id)) FolderButtonComponent(viewModel, folder, onButtonClick = {viewModel.onFolderClick(folder.id)})
+                    if(!folder.isFolderManager) FolderButtonComponent(viewModel, folder, onButtonClick = {viewModel.onFolderClick(folder.id)})
                     else FolderButtonComponent(viewModel, folder, onButtonClick = {navController.navigate("todo_list_foldermanager")})
                 }
             }

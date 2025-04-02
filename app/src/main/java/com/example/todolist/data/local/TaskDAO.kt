@@ -16,8 +16,8 @@ interface TaskDAO {
     @Query("SELECT * FROM tasks WHERE folderId = :id")
     fun getAllDataFromFolder(id : Int): Flow<List<Task>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTask(task:Task){Log.d("DEBUG", "C3")}
+    @Insert
+    suspend fun insertTask(task:Task)
 
     @Delete
     fun deleteTask(task: Task)
