@@ -28,6 +28,7 @@ import androidx.compose.material.icons.filled.Shop
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -53,6 +54,7 @@ import java.util.Date
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import com.example.todolist.domain.model.Folder
 import com.example.todolist.presentation.components.FolderButtonComponent
@@ -65,14 +67,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         val viewModel = TodoListViewModel()
 
-        viewModel.addFolder(Folder(0, "", Icons.Filled.Menu , FOLDERTYPE.ADD))
-        viewModel.addFolder(Folder(0, "Groceries", Icons.Filled.ShoppingCart, FOLDERTYPE.FOLDER))
-        viewModel.addFolder(Folder(0, "My Tasks", Icons.Filled.Checklist, FOLDERTYPE.FOLDER))
-
-        viewModel.addTask("Sample1")
-        viewModel.addTask("Sample2")
 
         viewModel.setFirstFolderAsCurrent()
+
 
         setContent {
             TodoListTheme {
@@ -91,6 +88,11 @@ fun TodoListApp(viewModel: TodoListViewModel, navController: NavHostController){
     var inputTask by remember { mutableStateOf("")}
     val todoList by viewModel.taskList.observeAsState()
     val foldersList by viewModel.folderList.observeAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit){
+        viewModel.seedDefautFoldersFirstRun(context)
+    }
 
     Box(modifier = Modifier
         .fillMaxSize()

@@ -68,5 +68,6 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$ROOM_VERSION")
     ksp("androidx.room:room-compiler:$ROOM_VERSION")
     implementation("androidx.room:room-ktx:$ROOM_VERSION")
+    implementation("androidx.datastore:datastore-preferences:1.1.4")
 
 }

@@ -40,6 +40,7 @@ object IconList {
         Icons.Filled.Archive, // Arquivos arquivados
         Icons.Filled.Backup, // Backup
         Icons.Filled.Cloud, // Nuvem
+        Icons.Filled.Menu
     )
 }
 

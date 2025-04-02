@@ -10,4 +10,6 @@ data class Folder(
     var folderName: String,
     var folderIcon: ImageVector,
     var folderType: FOLDERTYPE,
+    var isDefault: Boolean = false,
+    var isFolderManager: Boolean = false,
 )

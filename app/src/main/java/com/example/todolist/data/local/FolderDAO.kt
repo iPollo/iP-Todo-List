@@ -11,7 +11,7 @@ import com.example.todolist.domain.model.Folder
 interface FolderDAO {
 
     // Return all folders
-    @Query("SELECT * FROM folders")
+    @Query("SELECT * FROM folders ORDER BY isFolderManager ASC")
     fun getAllData(): LiveData<List<Folder>>
 
     @Insert

@@ -1,13 +1,17 @@
 package com.example.todolist.presentation.viewmodel
 
+import android.content.Context
 import android.os.Build
 import android.os.Debug
 import android.util.Log
 import android.util.MutableInt
 import androidx.annotation.RequiresApi
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Checklist
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Folder
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +23,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.example.todolist.data.local.AppDataStore
 import com.example.todolist.data.local.DataBaseSetup
 import com.example.todolist.data.local.FolderDAO
 import com.example.todolist.domain.model.FOLDERTYPE
@@ -53,7 +58,7 @@ class TodoListViewModel: ViewModel() {
 
     fun onFolderClick(folderid: Int){
         currentSelectedFolder = folderid
-        getAllTasksFromCurrentFolder()
+        //getAllTasksFromCurrentFolder()
     }
 
     fun isFolderCurrentSelectedFolder(folder: Folder): Boolean{
@@ -71,6 +76,19 @@ class TodoListViewModel: ViewModel() {
             currentSelectedFolder = 1
         }
 
+    }
+
+    fun seedDefautFoldersFirstRun(context: Context){
+        viewModelScope.launch {
+            val dataStore = AppDataStore(context)
+            if(dataStore.isFirstaRun()){
+                addFolder(Folder(0, "", Icons.Filled.Menu, FOLDERTYPE.ADD, isFolderManager = true))
+                addFolder(Folder(0, "Groceries", Icons.Filled.ShoppingCart, FOLDERTYPE.FOLDER))
+                addFolder(Folder(0, "My Tasks", Icons.Filled.Checklist, FOLDERTYPE.FOLDER))
+
+                dataStore.setFirstRunDone()
+            }
+        }
     }
 
     fun onIconSelectorClick(icon: ImageVector, navController: NavController){
