@@ -13,6 +13,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,12 +26,13 @@ import androidx.compose.ui.unit.sp
 import com.example.todolist.domain.model.FOLDERTYPE
 import com.example.todolist.domain.model.Folder
 import com.example.todolist.presentation.viewmodel.TodoListViewModel
+import androidx.compose.runtime.getValue
 
 @Composable
 fun FolderButtonComponent(viewModel: TodoListViewModel, folder: Folder, onButtonClick:()-> Unit){
 
-    val totalTasks: Int = 1
-    val totalFinishedTasks: Int = 1
+    val totalTasks by viewModel.getTotalTaskCountFromFolder(folder.id).observeAsState(0)
+    val totalFinishedTasks by viewModel.getTotalFinishedTaskCountFromFolder(folder.id).observeAsState(0)
     val folderProgress: Float = if(totalFinishedTasks == 0){0f}else{(totalFinishedTasks.toFloat()/totalTasks.toFloat())}
     val folderBackColor: Color = if(viewModel.isFolderCurrentSelectedFolder(folder)) Color(255,255,255,10) else Color(20,20,20)
     var folderBorderColor: Color = if(viewModel.isFolderCurrentSelectedFolder(folder)) Color(255,255,255,255) else Color(40,40,40)

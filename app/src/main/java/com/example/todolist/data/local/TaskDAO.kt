@@ -21,4 +21,10 @@ interface TaskDAO {
 
     @Delete
     fun deleteTask(task: Task)
+
+    @Query("SELECT COUNT(*) FROM tasks WHERE folderId = :id")
+    fun getTotalTaskCountFromFolder(id: Int): LiveData<Int>
+
+    @Query("SELECT COUNT(*) FROM tasks WHERE folderId = :id AND finished = 1")
+    fun getTotalFinishedTaskCountFromFolder(id: Int): LiveData<Int>
 }

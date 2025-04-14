@@ -20,4 +20,5 @@ interface FolderDAO {
     @Query("DELETE FROM folders WHERE id = :id")
     fun deleteFolderData(id: Int)
 
+
 }

@@ -64,6 +64,14 @@ class TodoListViewModel: ViewModel() {
         //getAllTasksFromCurrentFolder()
     }
 
+    fun getTotalTaskCountFromFolder(id: Int): LiveData<Int>{
+        return taskDao.getTotalTaskCountFromFolder(id)
+    }
+
+    fun getTotalFinishedTaskCountFromFolder(id: Int): LiveData<Int>{
+        return taskDao.getTotalFinishedTaskCountFromFolder(id)
+    }
+
     fun isFolderCurrentSelectedFolder(folder: Folder): Boolean{
         return folder.id == _currentSelectedFolder.value
     }
