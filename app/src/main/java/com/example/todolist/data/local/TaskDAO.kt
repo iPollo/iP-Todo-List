@@ -1,13 +1,10 @@
 package com.example.todolist.data.local
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.todolist.domain.model.Folder
 import com.example.todolist.domain.model.Task
 import kotlinx.coroutines.flow.Flow
 
@@ -27,4 +24,8 @@ interface TaskDAO {
 
     @Query("SELECT COUNT(*) FROM tasks WHERE folderId = :id AND finished = 1")
     fun getTotalFinishedTaskCountFromFolder(id: Int): LiveData<Int>
+
+    @Query("UPDATE tasks SET finished = :value WHERE folderId = :folderid AND id = :taskid")
+    suspend fun updateTask(folderid: Int?, taskid: Int, value: Boolean)
+
 }

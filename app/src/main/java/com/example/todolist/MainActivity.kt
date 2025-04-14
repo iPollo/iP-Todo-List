@@ -135,7 +135,7 @@ fun TodoListApp(viewModel: TodoListViewModel, navController: NavHostController){
                 state = rememberLazyListState(),
                 content = {
                     itemsIndexed(it){ _, item: Task ->
-                        DrawTask(item, onDeleteTaskClick = {viewModel.deleteTask(item)}, onTaskClick = {}, onFinisTaskClick = {viewModel.setTaskFinished(item.id)})
+                        DrawTask(item, onDeleteTaskClick = {viewModel.deleteTask(item)}, onTaskClick = {}, onFinisTaskClick = {viewModel.setTaskFinished(item)})
                     }
                 }
             )

@@ -2,9 +2,7 @@ package com.example.todolist.presentation.viewmodel
 
 import android.content.Context
 import android.os.Build
-import android.os.Debug
 import android.util.Log
-import android.util.MutableInt
 import androidx.annotation.RequiresApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Checklist
@@ -13,7 +11,6 @@ import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -26,7 +23,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.todolist.data.local.AppDataStore
 import com.example.todolist.data.local.DataBaseSetup
-import com.example.todolist.data.local.FolderDAO
 import com.example.todolist.domain.model.FOLDERTYPE
 import com.example.todolist.domain.model.Folder
 import com.example.todolist.domain.model.PRIORITYLEVEL
@@ -158,9 +154,12 @@ class TodoListViewModel: ViewModel() {
         }
     }
 
-    fun setTaskFinished(taskid: Int){
-       // TodoListObject.setTaskFinished(currentSelectedFolder, taskid)
-        getAllTasksFromCurrentFolder()
+    fun setTaskFinished(task: Task){
+
+        viewModelScope.launch(Dispatchers.IO) {
+            taskDao.updateTask(_currentSelectedFolder.value, task.id, !task.finished)
+        }
+
     }
 
 
